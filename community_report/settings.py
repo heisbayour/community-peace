@@ -8,7 +8,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-change-me")
 DEBUG = os.getenv("DEBUG", "True") == "True"
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "your-app-name.herokuapp.com 127.0.0.1 localhost").split()
+
+# Hosts (no http/https, just hostnames)
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "community-peace.up.railway.app,community-peace.onrender.com,127.0.0.1,localhost",
+).split(",")
 
 # Installed apps
 INSTALLED_APPS = [
@@ -19,7 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "reports",
-    'widget_tweaks',
+    "widget_tweaks",
 ]
 
 # Middleware
@@ -32,7 +37,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 # URL configuration
@@ -61,26 +65,26 @@ WSGI_APPLICATION = "community_report.wsgi.application"
 # Database
 DATABASES = {
     "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",  # local fallback
+        conn_max_age=600,
+        ssl_require=not DEBUG,  # disable SSL only if in DEBUG mode
     )
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
 }
 
 # Default auto field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Static files
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media files
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Session and authentication (optional, defaults are usually fine)
+# Session and authentication
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
-# Compress & cache static files
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+# WhiteNoise for static files
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
