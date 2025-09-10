@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Incident Archive - Community Peace Reporters Network{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<!-- Archive Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h2>Incident Archive</h2>
+        <p>Explore our comprehensive database of past incidents, documents, images, and videos for research and reference purposes.</p>
+    </div>
+</section>
+
+<!-- Archive Filters -->
+<section class="incident-archive">
+    <div class="container">
+        <div class="archive-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="document">Documents</button>
+            <button class="filter-btn" data-filter="image">Images</button>
+            <button class="filter-btn" data-filter="video">Videos</button>
+            <button class="filter-btn" data-filter="resolved">Resolved Cases</button>
+            <button class="filter-btn" data-filter="ongoing">Ongoing Cases</button>
+        </div>
+
+        <div class="archive-grid">
+            {% for incident in archive_items %}
+            <div class="archive-item" data-type="{{ incident.media_type|lower }}" data-status="{{ incident.status|lower }}">
+                <div class="archive-media" style="background-image: url('{{ incident.image.url }}');">
+                    <span class="media-type">{{ incident.media_type }}</span>
+                </div>
+                <div class="archive-content">
+                    <h3>{{ incident.title }}</h3>
+                    <div class="archive-meta">
+                        <span><i class="far fa-calendar"></i> {{ incident.date|date:"M d, Y" }}</span> | 
+                        <span>{{ incident.status }}</span>
+                    </div>
+                    <p>{{ incident.description|truncatewords:35 }}</p>
+                    <a href="{{ incident.get_absolute_url }}" class="btn">
+                        {% if incident.media_type == "Video" %}Watch Video{% elif incident.media_type == "Document" %}Download PDF{% else %}View Details{% endif %}
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No incidents recorded yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% block scripts %}
+<script src="{% static 'js/archive.js' %}"></script>
+{% endblock %}
+
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Community Peace Reporters Network{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-img">
+                        <img src="/static/images/logo.png" alt="C.O.P.E.R Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>COMMUNITY PEACE</h1>
+                        <p>REPORTERS NETWORK</p>
+                    </div>
+                </div>
+                
+                <button class="hamburger" id="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="main-nav">
+                    <ul>
+                        <li><a href="{% url 'reports:home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+                        <li><a href="{% url 'reports:all_documents' %}">Report Incidents</a></li>
+                        <li><a href="{% url 'reports:full_archive' %}">Incident Archive</a></li>
+                        <li><a href="{% url 'reports:get_involved' %}">Get Involved</a></li>
+                        <li><a href="{% url 'reports:about' %}">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <a href="{% url 'reports:all_documents' %}" class="btn">Report Incident</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>About C.O.P.E.R</h3>
+                    <p>The Community Peace Reporters Network is a non-profit organization dedicated to building peaceful communities through ethical reporting and conflict resolution.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{% url 'reports:home' %}">Home</a></li>
+                        <li><a href="#documents">Publications</a></li>
+                        <li><a href="#archive">Incident Archive</a></li>
+                        <li><a href="#">Training Resources</a></li>
+                        <li><a href="#get-involved">Volunteer</a></li>
+                        <li><a href="{% url 'reports:all_documents' %}">Report Incidents</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> No 12 Lingu Crescent Wuse 2 Abuja</li>
+                        <li><i class="fas fa-phone"></i>+234 802 361 8600</li>
+                        <li><i class="fas fa-envelope"></i> info@communitypeace.org</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Community Peace Reporters Network (C.O.P.E.R). All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

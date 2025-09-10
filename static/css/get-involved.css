@@ -1,0 +1,28 @@
+/* get-involved.css - volunteer form + FAQ */
+.accordion-header {
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+.accordion-content {
+  display: none;
+  padding: 10px;
+  background: #f4f4f4;
+}
+.accordion-header.active + .accordion-content {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+form input, form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}

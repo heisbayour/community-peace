@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}Report Incident - Community Peace Reporters Network{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h2>Report an Incident</h2>
+        <p>Help us document community conflicts and issues. Fill out the form below and our team will review your submission.</p>
+    </div>
+</section>
+
+<!-- Messages -->
+<div class="container">
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<!-- Report Form Section -->
+<section class="documents" style="padding: 80px 0;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Submit an Incident Report</h2>
+            <p>Please provide as much detail as possible to help us accurately record the incident.</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="report-form" action="{% url 'reports:report_incident' %}">
+            {% csrf_token %}
+
+            <!-- Incident Title -->
+            <div class="form-group">
+                <label for="title">Incident Title</label>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Enter a brief title" required>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" class="form-control" rows="5" placeholder="Describe the incident" required></textarea>
+            </div>
+
+            <!-- Media Type -->
+            <div class="form-group">
+                <label for="media_type">Type of Media</label>
+                <select name="media_type" id="media_type" class="form-control" required>
+                    <option value="">Select media type</option>
+                    <option value="Image">Image</option>
+                    <option value="Document">Document</option>
+                    <option value="Video">Video</option>
+                </select>
+            </div>
+
+            <!-- Media Upload -->
+            <div class="form-group">
+                <label for="media">Upload Image / Document / Video</label>
+                <input type="file" name="media" id="media" class="form-control" required>
+            </div>
+            
+            <!-- Status -->
+            <div class="form-group">
+                <label for="status">Incident Status</label>
+                <select name="status" id="status" class="form-control" required>
+                    <option value="">Select status</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Submit Report</button>
+        </form>
+
+    </div>
+</section>
+
+<style>
+    .report-form {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .report-form .form-group { margin-bottom: 20px; }
+    .report-form label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--dark); }
+    .report-form .form-control {
+        width: 100%; padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
+    }
+    .report-form .form-control:focus { border-color: var(--primary); outline: none; }
+    .report-form button.btn { display: inline-block; width: 100%; text-align: center; padding: 12px; font-size: 1.1rem; }
+    .messages { list-style: none; padding: 0; margin-bottom: 30px; }
+    .messages li { padding: 10px 15px; border-radius: 4px; margin-bottom: 10px; }
+    .messages li.success { background-color: #d4edda; color: #155724; }
+    .messages li.error { background-color: #f8d7da; color: #721c24; }
+</style>
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/reports.js' %}"></script>
+{% endblock %}

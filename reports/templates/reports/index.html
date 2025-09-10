@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Home - Community Peace Reporters Network{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h2>Building Peaceful Communities Together</h2>
+        <p>The Community Peace Reporters Network (C.O.P.E.R) is dedicated to documenting, reporting, and resolving community conflicts through peaceful journalism and citizen engagement.</p>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>What We Do</h2>
+            <p>Our mission is to promote peace and understanding in communities through responsible reporting and conflict resolution.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microphone-alt"></i>
+                </div>
+                <h3>Peace Reporting</h3>
+                <p>Training community members to report on conflicts with a focus on peace-building and solutions journalism.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Mediation</h3>
+                <p>Facilitating dialogue between conflicting parties to find common ground and peaceful resolutions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Building</h3>
+                <p>Organizing events and workshops that bring community members together to foster understanding.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Documents Section -->
+<section class="documents" id="documents">
+    <div class="container">
+        <div class="section-title">
+            <h2>Key Documents</h2>
+            <p>Access our research papers, reports, and publications on farmer-herder conflicts and peacebuilding initiatives.</p>
+        </div>
+
+        <div class="documents-grid">
+            {% for document in documents %}
+            <div class="document-card">
+                <div class="document-img" style="background-image: url('{{ document.image.url }}');"></div>
+                <div class="document-content">
+                    <h3>{{ document.title }}</h3>
+                    <div class="document-meta">
+                        <span>
+                            {% if ".pdf" in document.file.url %}
+                                <i class="far fa-file-pdf"></i> PDF
+                            {% elif ".doc" in document.file.url or ".docx" in document.file.url %}
+                                <i class="far fa-file-word"></i> DOC
+                            {% endif %}
+                        </span>
+                        <span>{{ document.pages }} pages</span>
+                    </div>
+                    <div class="document-excerpt">
+                        <p>{{ document.description|truncatewords:25 }}</p>
+                    </div>
+                    <a href="{{ document.file.url }}" class="btn">Read Document</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No documents available at the moment.</p>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{% url 'reports:all_documents' %}" class="btn">View All Documents</a>
+        </div>
+    </div>
+</section>
+
+<!-- Incident Archive Section -->
+<section class="incident-archive" id="archive">
+    <div class="container">
+        <div class="section-title">
+            <h2>Incident Archive</h2>
+            <p>Access our database of past incidents, documents, images, and videos for research and reference purposes.</p>
+        </div>
+
+        <div class="archive-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="document">Documents</button>
+            <button class="filter-btn" data-filter="image">Images</button>
+            <button class="filter-btn" data-filter="video">Videos</button>
+            <button class="filter-btn" data-filter="resolved">Resolved Cases</button>
+            <button class="filter-btn" data-filter="ongoing">Ongoing Cases</button>
+        </div>
+
+        <div class="archive-grid">
+            {% for incident in archive_items %}
+            <div class="archive-item">
+                <div class="archive-media" style="background-image: url('{{ incident.image.url }}');">
+                    <span class="media-type">{{ incident.media_type }}</span>
+                </div>
+                <div class="archive-content">
+                    <h3>{{ incident.title }}</h3>
+                    <div class="archive-meta">
+                        <span><i class="far fa-calendar"></i> {{ incident.date|date:"M d, Y" }}</span> | 
+                        <span>{{ incident.status }}</span>
+                    </div>
+                    <p>{{ incident.description|truncatewords:25 }}</p>
+                    <a href="{{ incident.get_absolute_url }}" class="btn">
+                        {% if "mp4" in incident.media_type|lower %}
+                            Watch Video
+                        {% elif "pdf" in incident.media_type|lower %}
+                            Download PDF
+                        {% else %}
+                            View Details
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No incidents recorded yet.</p>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{% url 'reports:full_archive' %}" class="btn">Browse Full Archive</a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta" id="get-involved">
+    <div class="container">
+        <h2>Become a Peace Reporter</h2>
+        <p>Join our network of community peace reporters and make a difference in your neighborhood. Training and support provided.</p>
+        <a href="{% url 'reports:get_involved' %}" class="btn">Join us Today</a>
+    </div>
+</section>
+{% block scripts %}
+<script src="{% static 'js/archive.js' %}"></script>
+{% endblock %}
+{% endblock %}

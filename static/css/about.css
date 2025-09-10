@@ -1,0 +1,12 @@
+/* about.css - about page */
+.about-section {
+  padding: 40px 0;
+}
+.about-section h2 {
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+.about-section p {
+  max-width: 700px;
+  margin-bottom: 20px;
+}

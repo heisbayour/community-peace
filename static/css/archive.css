@@ -1,0 +1,30 @@
+/* archive.css - archive page */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.filters input,
+.filters select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.results-count {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-top: 10px;
+}
+.archive-list {
+  list-style: none;
+  padding: 0;
+}
+.archive-item {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+.archive-item:last-child {
+  border-bottom: none;
+}

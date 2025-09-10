@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Get Involved - Community Peace Reporters Network{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h2>Get Involved</h2>
+        <p>Join our network of peace reporters, volunteers, and community leaders. Together, we can promote understanding and resolve conflicts peacefully.</p>
+    </div>
+</section>
+
+<!-- Volunteer & Participation Section -->
+<section class="features" style="padding: 80px 0;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Ways to Contribute</h2>
+            <p>There are several ways you can make a difference. Choose what aligns best with your skills and interests.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Volunteer Reporting</h3>
+                <p>Become a community peace reporter and document incidents in your neighborhood responsibly.</p>
+                <a href="reports.html" class="btn btn-secondary">Start Reporting</a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Community Outreach</h3>
+                <p>Organize or participate in workshops, dialogues, and events to promote peace and understanding.</p>
+                <a href="#contact" class="btn btn-secondary">Get Involved</a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-donate"></i>
+                </div>
+                <h3>Support Our Cause</h3>
+                <p>Help fund our initiatives and campaigns to strengthen community peace-building efforts.</p>
+                <a href="#contact" class="btn btn-secondary">Donate</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join Form Section -->
+<section class="documents" style="padding: 80px 0;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Join Our Network</h2>
+            <p>Fill out the form below to become an active member of the Community Peace Reporters Network.</p>
+        </div>
+
+        <form method="POST" class="report-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">Full Name</label>
+                <input type="text" id="id_name" name="name" class="form-control" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email Address</label>
+                <input type="email" id="id_email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_interest">Area of Interest</label>
+                <select id="id_interest" name="interest" class="form-control" required>
+                    <option value="">-- Select an option --</option>
+                    <option value="reporting">Peace Reporting</option>
+                    <option value="outreach">Community Outreach</option>
+                    <option value="support">Supporting the Cause</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="id_message">Message (Optional)</label>
+                <textarea id="id_message" name="message" rows="4" class="form-control" placeholder="Tell us why you want to join"></textarea>
+            </div>
+
+            <button type="submit" class="btn">Join Now</button>
+        </form>
+    </div>
+</section>
+
+<style>
+    /* Reuse same styling as reports page */
+    .report-form {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .report-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .report-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--dark);
+    }
+
+    .report-form .form-control {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+
+    .report-form .form-control:focus {
+        border-color: var(--primary);
+        outline: none;
+    }
+
+    .report-form button.btn {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+</style>
+
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/get_involved.js' %}"></script>
+{% endblock %}
